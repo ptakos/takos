@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include <iomanip>
 
 using namespace std;
 int main()
@@ -21,8 +22,12 @@ int main()
 		double f = (double)rand() / RAND_MAX;
 		double dayPrice = priceMin + f * (priceMax - priceMin);
 		price = dayPrice;
-		cout << "day " << i << " ";
+		/*cout << "day " << i << " ";
 		cout << dayPrice;
 		cout << "\n";
+		*/
+
+        cout <<  "|| " << setw(6) << left << "day" << i << " | " << setw(7) << right << dayPrice << " ||";
+        cout << "\n";
 	}
 }
