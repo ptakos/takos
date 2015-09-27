@@ -1,0 +1,21 @@
+// Example program
+#include <iostream>
+#include <stdlib.h>
+#include <math.h>
+
+using namespace std;
+int main()
+{
+  double price;
+  double random;
+  int days;
+  
+  double max = 1.05*price;
+  double min = 0.95*price;
+  random = fmod(rand(), (max - min + 0.01*price)) + min;
+  cout << "Provide initial stock price: ";
+  cin >> price;
+  cout << "Provide number of days for simulation: ";
+  cin >> days;
+  cout << random;
+}
