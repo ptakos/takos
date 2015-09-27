@@ -1,33 +1,86 @@
 // Example program
 #include <iostream>
 #include <stdlib.h>
+#include <random>
 #include <math.h>
-#include <iomanip>
-
+ 
 using namespace std;
+ 
+ 
+double unifRand(double minValue, double maxValue)
+{
+	static default_random_engine generator;
+	uniform_real_distribution<double> distribution(minValue,maxValue);
+	double randomNumber = distribution(generator);
+	return randomNumber;
+}
+ 
+double normalRand(double mean, double sigma)
+{
+	static default_random_engine generator;
+	normal_distribution<double> distribution(mean,sigma);
+	double randomNumber = distribution(generator);
+	return randomNumber;
+}
+ 
+void printRow(int dayIndex, double dayPrice){
+	if(dayIndex < 10){
+		cout << "| day " << dayIndex << "  | ";
+	} else{
+		cout << "| day " << dayIndex << " | ";
+	}
+ 
+	cout << dayPrice;
+	cout << endl;
+}
+ 
 int main()
 {
-  double price = 0;
-  int days;
-  
-    cout << "Provide initial stock price: ";
-    cin >> price;
-    cout << "Provide number of days for simulation: ";
-    cin >> days;
+	bool useUniformDistribution = false;
+	double range = 0.005;
+	string distributionType;
+ 
+	double price = 0;
+	int days;
+	cout << "Provide initial stock price: " << endl;
+	cin >> price;
+	cout << "Provide number of days for simulation: " << endl;
+	cin >> days;
+	cout << "Provide distribution type (n=normal/u=uniform): " << endl;
+	
+	double minValue = price;
+	double maxValue = price;
+ 
+	cout << endl;
+	cout << "------------------" << endl;
+	cout << "Initial price: " << price << endl;
+	cout << "Simulation days: " << days << endl;
+	cout << "------------------" << endl;
  
 	for (int i = 1; i <= days; i++)
 	{
-		double priceMin = price -(price *0.05);
-		double priceMax = price +(price *0.05);
-		double f = (double)rand() / RAND_MAX;
-		double dayPrice = priceMin + f * (priceMax - priceMin);
+		double priceMin = (price * (1-range));
+		double priceMax = (price *(1+range));
+		double dayPrice = 0;
+ 
+		if(useUniformDistribution){
+			dayPrice = unifRand(priceMin,priceMax);
+		} else{
+			dayPrice = normalRand(price, range);
+		}
+ 
 		price = dayPrice;
-		/*cout << "day " << i << " ";
-		cout << dayPrice;
-		cout << "\n";
-		*/
-
-        cout <<  "|| " << setw(6) << left << "day" << i << " | " << setw(7) << right << dayPrice << " ||";
-        cout << "\n";
+ 
+		if(minValue > price){
+			minValue = price;
+		}
+ 
+		if(maxValue < price){
+			maxValue = price;
+		}
+ 
+		printRow(i, dayPrice);
 	}
+ 
+	cout << "------------------";
 }
