@@ -1,4 +1,4 @@
-var i,l,y = 0;
+var i,l = 0;
 var A = [];
 
 for (i=1; i<=21; i++){
@@ -7,18 +7,18 @@ for (i=1; i<=21; i++){
 
 l = A.length;
 
-function print (y){
-    for (i=1; i<=y/2; i++){
-    	console.log(A[i-1]);
-    	console.log(A[y-i]);
+function print (B){
+	y = B.length;
+    for (i=0; i<y/2; i++){
+    	console.log(B[i]);
+    	console.log(B[y-i-1]);
     }
 }
 
 if (l%2==1){
-	print(l);
-	a = Math.ceil(l/2)
-	console.log(a);
+	print(A);
+	console.log(A[parseInt(l/2)]);
 	}
 	else{
-	print(l)
+	print(A)
 	}
